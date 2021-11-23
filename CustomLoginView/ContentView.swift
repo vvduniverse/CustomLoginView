@@ -9,8 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+     
+        GeometryReader { _ in
+            VStack {
+                Image("asics")
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                
+                ZStack {
+                    Text("Hello swiftUI")
+                }
+                
+                HStack(spacing: 15) {
+                    Rectangle()
+                        .fill(Color("Color1"))
+                        .frame(height: 1)
+                }
+            }
+            
+        }
     }
 }
 
