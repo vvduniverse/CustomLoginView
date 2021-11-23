@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-     
+        
         GeometryReader { _ in
             VStack {
                 Image("asics")
@@ -24,6 +24,26 @@ struct ContentView: View {
                     Rectangle()
                         .fill(Color("Color1"))
                         .frame(height: 1)
+                    
+                    Text("OR")
+                    Rectangle()
+                        .fill(Color("Color1"))
+                        .frame(height: 1)
+                }
+                .padding(.horizontal, 30)
+                .padding(.top, 50)
+                
+                HStack(spacing: 25) {
+                    Button(action: {
+                        
+                    }){
+                        Image("apple")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                    
                 }
             }
             
