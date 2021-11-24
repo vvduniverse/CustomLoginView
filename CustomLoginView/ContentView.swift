@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var index = 0
+    
     var body: some View {
         
         GeometryReader { _ in
@@ -19,7 +20,9 @@ struct ContentView: View {
                     .frame(width: 70, height: 70)
                 
                 ZStack {
-                    Text("Hello swiftUI")
+                    SighUp(index: self.$index)
+                        .zIndex(Double(self.index))
+                    Login(index: self.$index)
                 }
                 
                 HStack(spacing: 15) {
@@ -28,6 +31,7 @@ struct ContentView: View {
                         .frame(height: 1)
                     
                     Text("OR")
+                    
                     Rectangle()
                         .fill(Color("Color1"))
                         .frame(height: 1)
@@ -37,8 +41,7 @@ struct ContentView: View {
                 
                 HStack(spacing: 25) {
                     Button(action: {
-                        
-                    }){
+                    }) {
                         Image("apple")
                             .resizable()
                             .renderingMode(.original)
@@ -47,8 +50,7 @@ struct ContentView: View {
                     }
                     
                     Button(action: {
-                        
-                    }){
+                    }) {
                         Image("facebook")
                             .resizable()
                             .renderingMode(.original)
@@ -57,22 +59,20 @@ struct ContentView: View {
                     }
                     
                     Button(action: {
-                        
-                    }){
+                    }) {
                         Image("twitter")
                             .resizable()
                             .renderingMode(.original)
                             .frame(width: 50, height: 50)
                             .clipShape(Circle())
                     }
-                    
                 }
+                .padding(.top, 30)
             }
-            .padding(.top, 30)
             .padding(.vertical)
         }
-        //        .background(Color("Color")).edgesIgnoringSafeArea(.all)
-        .preferredColorScheme(.dark)
+        .background(Color.yellow).edgesIgnoringSafeArea(.all)
+//        .preferredColorScheme(.dark)
     }
 }
 
@@ -112,8 +112,8 @@ struct CShape1: Shape {
 
 
 struct Login: View {
-    @State private var email = ""
-    @State private var pass = ""
+    @State var email = ""
+    @State var pass = ""
     @Binding var index: Int
     
     var body: some View {
@@ -160,7 +160,8 @@ struct Login: View {
                 HStack {
                     Spacer(minLength: 0)
                     
-                    Button(action: {}) {
+                    Button(action: {
+                    }) {
                         Text("Forget Password?")
                             .foregroundColor(Color.white.opacity(0.6))
                     }
@@ -178,10 +179,11 @@ struct Login: View {
                 self.index = 0
             }
             .cornerRadius(35)
-            .padding(.horizontal, 25)
+            .padding(.horizontal, 20)
             
             
-            Button(action: {}) {
+            Button(action: {
+            }) {
                 Text("LOGIN")
                     .foregroundColor(.white)
                     .fontWeight(.bold)
@@ -191,7 +193,7 @@ struct Login: View {
                     .clipShape(Capsule())
                     .shadow(color: Color.white.opacity(0.1), radius: 5, x: 0, y: 5)
             }
-            .offset(y: 35)
+            .offset(y: 25)
             .opacity(self.index == 0 ? 1 : 0)
         }
     }
@@ -208,7 +210,7 @@ struct SighUp: View {
         ZStack(alignment: .bottom) {
             VStack {
                 HStack {
-                    Spacer()
+                    Spacer(minLength: 0)
                     
                     VStack(spacing: 10) {
                         Text("SighUp")
@@ -223,6 +225,18 @@ struct SighUp: View {
                 }
                 .padding(.top, 30)
                 
+                
+                VStack {
+                    HStack(spacing: 15) {
+                        Image(systemName: "envelop.fill")
+                            .foregroundColor(Color("Color1"))
+                        TextField("Email Address", text: $email)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                }
+                .padding(.horizontal)
+                .padding(.top, 40)
+                
                 VStack {
                     
                     HStack(spacing: 15) {
@@ -235,7 +249,43 @@ struct SighUp: View {
                 }
                 .padding(.horizontal)
                 padding(.top, 30)
+                
+                VStack {
+                    HStack(spacing: 15) {
+                        Image(systemName: "eye.slash.fill")
+                            .foregroundColor(Color("Color1"))
+                        SecureField("Password", text: self.$repass)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                }
+                .padding(.horizontal)
+                .padding(.top, 30)
             }
+            .padding()
+            .padding(.bottom, 65)
+            .background(Color("Color2"))
+            .clipShape(CShape1())
+            .contentShape(CShape1())
+            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: -5)
+            .onTapGesture {
+                self.index = 1
+            }
+            .cornerRadius(35)
+            .padding(.horizontal, 20)
+            
+            Button(action: {
+            }) {
+                Text("SIGNUP")
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .padding(.vertical)
+                    .padding(.horizontal, 50)
+                    .background(Color("Color1"))
+                    .clipShape(Capsule())
+                    .shadow(color: Color.white.opacity(0.1), radius: 5, x: 0, y: -5)
+            }
+            .offset(y: 25)
+            .opacity(self.index == 1 ? 1 : 0)
         }
     }
 }
